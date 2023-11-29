@@ -18,8 +18,8 @@ python 3_extract_entities.py
 echo "Running step 4..."
 python 4_extract_relations.py
 
-echo "Running step 4..."
+echo "Running step 5..."
 python 5_align_entities.py
 
-echo "Running step 5..."
+echo "Running step 6..."
 python 6_construct_KG.py
