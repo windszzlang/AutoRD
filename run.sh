@@ -19,7 +19,10 @@ echo "Running step 4..."
 python 4_extract_relations.py
 
 echo "Running step 5..."
-python 5_align_entities.py
+python 5_calibrate_entities.py
 
 echo "Running step 6..."
-python 6_construct_KG.py
+python 6_align_entities.py
+
+echo "Running step 7..."
+python 7_construct_KG.py

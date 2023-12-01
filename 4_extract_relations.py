@@ -58,10 +58,10 @@ for D in tqdm(data):
             model_output = resp.choices[0].message.content
             # print(model_output)
             D['cache']['step4'] = json.loads(model_output)
-            D['pred'] = {
-                'entities': D['cache']['step3']['entities'],
-                'relations': D['cache']['step4']['relations'],
-            }
+            # D['pred'] = {
+            #     'entities': D['cache']['step3']['entities'],
+            #     'relations': D['cache']['step4']['relations'],
+            # }
             # D['model_output'] = model_output
         except Exception as e:
             print(e)
@@ -78,12 +78,16 @@ for D in tqdm(data):
 # gather_llm_output('cache_data/step4_res', 'cache_data/step4_res.jsonl')
 # pred, gold = gather_data('cache_data/step4_res')
 
-pred, gold = get_pred_gold_from_scatterd_data('cache_data/step4_res')
 
 gather_llm_output('cache_data/step4_res', 'cache_data/step4_res.jsonl')
 
-scores = evaluate(pred, gold)
 
 
-printout_result(scores, 'exact')
-printout_result(scores, 'relaxed')
+
+# pred, gold = get_pred_gold_from_scatterd_data('cache_data/step4_res')
+
+# scores = evaluate(pred, gold)
+
+
+# printout_result(scores, 'exact')
+# printout_result(scores, 'relaxed')

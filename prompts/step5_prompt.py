@@ -1,8 +1,7 @@
-STEP4_PROMPT_TEMPLATE = '''### Task:
+STEP5_PROMPT_TEMPLATE = '''### Task:
 You will receive a section of text from medical literature. Analyze the medical text for named entities and their relations.
-Focus on identifying instances of diseases, rare diseases, symptoms and signs, and anaphors. Provide the entities and their character position indices within the text.
-Then, identify the relationships between these entities, such as anaphoric references or other specific relations mentioned in the text.
-
+You will also receive extracted entities and extracted relations, but there are still some errors in them. Therefore, you need to fix them and output these entities and relations again.
+You need to focus on relations and then go back to fix errors in predicated entities.
 
 All entity types and relation types including their detailed definition are listed as follow.
 ### Definition:
@@ -21,20 +20,18 @@ All entity types and relation types including their detailed definition are list
 
 
 ### Notice:
-1. You have already extracted the entities I provided; now, try to find any relations between these entities.
-1. You have already extracted the entities I provided; now, try to find any relations between these entities.
-1. You have already extracted the entities I provided; now, try to find any relations between these entities.
-
-### Exemplars
-Here are some exemplers of input text and target relations:
-{examplars}
+You need to based on these points to filter out wrong entities.
+  1. "symptom_and_sign" are usally appeared as reasons of "disease" and "rare_disease".
+  2. In a relationship, the reason needs to be "symptom_and_sign", the results need to be "disease" and "rare_disease".
+  3. "disease" cannot appear independently in the absence of other reasons.
+  4. Do not identify all pronouns as "anaphor". "anaphor" must be a word that refer to a rare disease. "anaphor" here cannot refer to any other kinds of medical terms.
+  5. These very general terms (e.g., condition, disorder, symptom or manifestation, disease) should not be extracted as "disease".
 
 
 ### Input (Give Passage): {text}
 
 ### Extracted Entities: {entities} 
-
-### Rare Disease Knowledge: {rare_disease_knowledge}
+### Extracted Relations: {relations}
 
 
 ### Output format
@@ -48,6 +45,14 @@ Here are some exemplers of input text and target relations:
 
 ## Your output should be a single JSON object in the following format:
 {{
+  "entities": {{
+    "disease": [
+      ["entity", [start, end]]
+    ],
+    "rare_disease": [],
+    "symptom_and_sign": [],
+    "anaphor": []
+  }},
   "relations": {{
     "produces": [
       [["entity_1", [start, end]], ["entity_2", [start, end]]]

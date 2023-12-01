@@ -21,8 +21,8 @@ All entity types including their detailed definition are listed as follow.
 6. These very general terms (e.g., condition, disorder, symptom or manifestation, disease) should not be extracted as "disease".
 
 
-### Examplars
-Here are some examplers of input text and target entities:
+### Exemplars
+Here are some exemplers of input text and target entities:
 {examplars}
 
 
